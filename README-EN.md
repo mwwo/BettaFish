@@ -65,6 +65,7 @@ LLM Model API Sponsor: <a href="https://aihubmix.com/?aff=8Ds9" target="_blank">
 
 <details>
 <summary>Solomon Blog LionCC.ai; Programming Carpool codecodex.ai; Programming Computing Power VibeCodingAPI.ai: <span style="margin-left: 10px"><a href="https://lioncc.ai/" target="_blank"><img src="./static/image/logo_loincc.png" alt="666ghj%2FBettaFish | Trendshift" height="40"/></a></span></summary>
+
 1. Solomon Blog LionCC.ai has updated the "BettaFish WeiYu System - LionCC API Deployment Configuration Complete Guide" and is optimizing one-click deployment and cloud server invocation solutions.
 2. VibeCodingapi.ai Lion Computing Platform has adapted to all LLM models of "BettaFish WeiYu System", including Claude Code, OpenAI Codex, and Gemini CLI programming development computing power. The quota price is 1:1 (100 yuan equals 100 USD quota).
 3. Codecodex.ai Lion Programming Carpool System has achieved IP-free access to bypass Claude Code and OpenAI Codex restrictions. After following the official deployment tutorial, simply switch the BASE_URL invocation address and Token key invocation key to use the most powerful programming models.
@@ -206,6 +207,42 @@ Weibo_PublicOpinion_AnalysisSystem/
 
 ## 🚀 Quick Start
 
+### 1. Starting the Project
+
+**Run Command:** Execute the following command to start all services in the **background**:
+
+```bash
+docker compose up -d
+```
+
+> **⚠️ Note: Slow Image Pull**
+
+> In the original `docker-compose.yml` file, we have provided alternative (mirror) image addresses as **comments** for you to replace with.
+
+### 2. Configuration Instructions
+
+#### Database Configuration
+
+Please configure the database connection information with the following parameters:
+
+| Configuration Item | Value to Use | Description |
+| :--- | :--- | :--- |
+| `DB_HOST` | `db` | Database service name (as defined in `docker-compose.yml`) |
+| `DB_PORT` | `5432` | Default PostgreSQL port |
+| `DB_USER` | `bettafish` | Database username |
+| `DB_PASSWORD` | `bettafish` | Database password |
+| `DB_NAME` | `bettafish` | Database name |
+| **Others** | **Keep Default** | Please keep other parameters, such as database connection pool settings, at their default values. |
+
+### Large Language Model (LLM) Configuration
+
+After completing the database configuration, please proceed to configure **all Large Language Model related parameters** to ensure the system can connect to your chosen LLM service.
+
+Upon completing and saving all the configurations above, the system should be ready to run normally.
+
+
+## 💻 ⚙️ Source Code Startup Guide
+
 > If you are new to building Agent systems, you can start with a very simple demo: [Deep Search Agent Demo](https://github.com/666ghj/DeepSearchAgent-Demo)
 
 ### System Requirements
@@ -259,22 +296,32 @@ Copy the `.env.example` file in the project root directory to `.env`
 
 Edit the `.env` file and fill in your API keys (you can also choose your own models and search proxies; see the `.env.example` file in the project root directory or the `config.py` file for details):
 
-```python
-# MySQL Database Configuration
-DB_HOST = "localhost"
-DB_PORT = 3306
-DB_USER = "your_username"
-DB_PASSWORD = "your_password"
-DB_NAME = "your_db_name"
-DB_CHARSET = "utf8mb4"
+```yml
+# ====================== Database Configuration ======================
+# Database host, e.g., localhost or 127.0.0.1
+DB_HOST=your_db_host
+# Database port number, default is 3306
+DB_PORT=3306
+# Database username
+DB_USER=your_db_user
+# Database password
+DB_PASSWORD=your_db_password
+# Database name
+DB_NAME=your_db_name
+# Database character set, utf8mb4 is recommended for emoji compatibility
+DB_CHARSET=utf8mb4
+# Database type: mysql or postgresql
+DB_DIALECT=postgresql
 
 # LLM configuration
 # You can switch each Engine's LLM provider as long as it follows the OpenAI-compatible request format
 
 # Insight Agent
-INSIGHT_ENGINE_API_KEY = "your_api_key"
-INSIGHT_ENGINE_BASE_URL = "https://api.moonshot.cn/v1"
-INSIGHT_ENGINE_MODEL_NAME = "kimi-k2-0711-preview"
+INSIGHT_ENGINE_API_KEY=
+# Insight Agent LLM API BaseUrl, customize API provider
+INSIGHT_ENGINE_BASE_URL=
+# Insight Agent LLM Model Name, e.g., kimi-k2-0711-preview
+INSIGHT_ENGINE_MODEL_NAME=
 # Media Agent
 ...
 ```

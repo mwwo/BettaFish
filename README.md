@@ -66,6 +66,7 @@ LLM模型API赞助：<a href="https://aihubmix.com/?aff=8Ds9" target="_blank"><i
 
 <details>
 <summary>所罗门博客LionCC.ai；编程拼车codecodex.ai；编程算力VibeCodingAPI.ai：</a><span style="margin-left: 10px"><a href="https://aihubmix.com/?aff=8Ds9" target="_blank"><img src="./static/image/logo_loincc.png" alt="666ghj%2FBettaFish | Trendshift" height="40"/></a></summary>
+
 1. 所罗门博客LionCC.ai已更新《BettaFish 微舆系统 - LionCC API 部署配置完全指南》正在二开优化一键部署和云服务器调用方案。
 2. VibeCodingapi.ai狮子算力平台已经适配《BettaFish 微舆系统》所有LLM模型含claude code和openai codex和gemini cli编程开发三巨头算力。额度价格，只要一比一（100元等于100美刀额度）
 3. Codecodex.ai狮子编程拼车系统，已实现无IP门槛绕过claude code和openai codex封锁，按官方部署教程后切换BASE_URL调用地址和Token key调用密钥即可使用最强编程模型。
@@ -204,7 +205,44 @@ Weibo_PublicOpinion_AnalysisSystem/
 └── requirements.txt               # Python依赖包清单
 ```
 
-## 🚀 快速开始
+## 🚀 快速开始（docker）
+
+### 1. 启动项目
+
+**运行命令：** 执行以下命令在**后台**启动所有服务：
+
+```bash
+docker compose up -d
+```
+
+> **⚠️ 注意：镜像拉取速度慢**
+
+> 在原 `docker-compose.yml` 文件中，我们已经通过**注释**的方式提供了备用镜像地址供您替换。
+
+### 2. 配置说明
+
+#### 数据库配置 (Database Configuration)
+
+请按照以下参数配置数据库连接信息：
+
+| 配置项 | 填写值 | 说明 |
+| :--- | :--- | :--- |
+| `DB_HOST` | `db` | 数据库服务名称 (对应 `docker-compose.yml` 中的服务名) |
+| `DB_PORT` | `5432` | 默认 PostgreSQL 端口 |
+| `DB_USER` | `bettafish` | 数据库用户名 |
+| `DB_PASSWORD` | `bettafish` | 数据库密码 |
+| `DB_NAME` | `bettafish` | 数据库名称 |
+| **其他** | **保持默认** | 数据库连接池等其他参数请保持默认设置。 |
+
+#### 大模型配置
+
+在完成数据库配置后，请正常配置**所有大模型相关的参数**，确保系统能够连接到您选择的大模型服务。
+
+完成上述所有配置并保存后，系统即可正常运行。
+
+------
+
+## 💻 🔧 源码启动指南
 
 > 如果你是初次学习一个Agent系统的搭建，可以从一个非常简单的demo开始：[Deep Search Agent Demo](https://github.com/666ghj/DeepSearchAgent-Demo)
 
@@ -259,22 +297,32 @@ playwright install chromium
 
 编辑 `.env` 文件，填入您的API密钥（您也可以选择自己的模型、搜索代理，详情见根目录.env.example文件内或根目录config.py中的说明）：
 
-```python
-# MySQL数据库配置
-DB_HOST = "localhost"
-DB_PORT = 3306
-DB_USER = "your_username"
-DB_PASSWORD = "your_password"
-DB_NAME = "your_db_name"
-DB_CHARSET = "utf8mb4"
+```yml
+# ====================== 数据库配置 ======================
+# 数据库主机，例如localhost 或 127.0.0.1
+DB_HOST=your_db_host
+# 数据库端口号，默认为3306
+DB_PORT=3306
+# 数据库用户名
+DB_USER=your_db_user
+# 数据库密码
+DB_PASSWORD=your_db_password
+# 数据库名称
+DB_NAME=your_db_name
+# 数据库字符集，推荐utf8mb4，兼容emoji
+DB_CHARSET=utf8mb4
+# 数据库类型mysql或postgresql
+DB_DIALECT=postgresql
 
 # LLM配置
 # 您可以更改每个部分LLM使用的API，只要兼容OpenAI请求格式都可以
 
 # Insight Agent
-INSIGHT_ENGINE_API_KEY = "your_api_key"
-INSIGHT_ENGINE_BASE_URL = "https://api.moonshot.cn/v1"
-INSIGHT_ENGINE_MODEL_NAME = "kimi-k2-0711-preview"
+INSIGHT_ENGINE_API_KEY=
+# Insight Agent LLM接口BaseUrl，可自定义厂商API
+INSIGHT_ENGINE_BASE_URL=
+# Insight Agent LLM模型名称，如kimi-k2-0711-preview
+INSIGHT_ENGINE_MODEL_NAME=
 # Media Agent
 ...
 ```
